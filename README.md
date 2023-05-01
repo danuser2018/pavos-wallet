@@ -21,7 +21,7 @@ pip install -r requirements.txt
 4. Ejecuta la aplicación con el siguiente comando:
 
 ```shell
-python pavos_wallet.py
+python pavoswallet.py
 ```
 
 ## Características
