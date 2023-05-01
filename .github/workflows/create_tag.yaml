@@ -1,4 +1,4 @@
-name: Tag version
+name: Create tag with semver version
 
 on:
   push:
