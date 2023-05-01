@@ -1,0 +1,24 @@
+name: Create tag on master merge
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install GitVersion
+        uses: GitTools/actions/gitversion/setup@v0.9.7
+      - name: Set up Git user name and email
+        uses: actions/setup-git@v2
+        with:
+          user-name: ${{ github.actor }}
+          email: ${{ github.actor }}@users.noreply.github.com
+      - run: git config --global pull.rebase true
+      - name: Create tag
+        run: |
+          git tag -a v${{ env.GitVersion.SemVer }} -m "Release version v${{ env.GitVersion.SemVer }}" ${{ github.sha }}
+          git push origin --tags
