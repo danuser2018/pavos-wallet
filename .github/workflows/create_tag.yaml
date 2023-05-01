@@ -1,24 +1,35 @@
-name: Create tag on master merge
+name: Tag version
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+
+permissions:
+  contents: read
 
 jobs:
-  create-tag:
+  deploy:
+
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
       - name: Install GitVersion
-        uses: GitTools/actions/gitversion/setup@v0.9.7
-      - name: Set up Git user name and email
-        uses: actions/setup-git@v2
+        uses: gittools/actions/gitversion/setup@v0.9.7
         with:
-          user-name: ${{ github.actor }}
-          email: ${{ github.actor }}@users.noreply.github.com
-      - run: git config --global pull.rebase true
-      - name: Create tag
+          versionSpec: '5.x'
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Determine Version
+        uses: gittools/actions/gitversion/execute@v0.9.7
+      - name: Display SemVer
         run: |
-          git tag -a v${{ env.GitVersion.SemVer }} -m "Release version v${{ env.GitVersion.SemVer }}" ${{ github.sha }}
-          git push origin --tags
+          echo "SemVer: $GITVERSION_MAJORMINORPATCH"
+      - name: Create Tag
+        uses: negz/create-tag@v1
+        with:
+          version: ${{ env.GITVERSION_MAJORMINORPATCH }}
+          message: "Pavos-wallet v.${{ env.GITVERSION_MAJORMINORPATCH }}"
+          token: ${{ secrets.CREATE_TAG_TOKEN }}
+
