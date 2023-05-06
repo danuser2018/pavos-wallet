@@ -1,0 +1,36 @@
+name: SonarCloud
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+      env:
+        PIP_CACHE_DIR: ${{ runner.workspace }}/.pip-cache
+    - name: Run tests
+      run: |
+        pytest
+      env:
+        PIP_CACHE_DIR: ${{ runner.workspace }}/.pip-cache
+    - name: SonarCloud
+      uses: sonarsource/sonarcloud-github-action@master
+      with:
+        organization: danuser2018
+        projectKey: pavos-wallet
+        token: ${{ secrets.SONAR_TOKEN }}
