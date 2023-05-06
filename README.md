@@ -1,3 +1,4 @@
+[![Continuous integration](https://github.com/danuser2018/pavos-wallet/actions/workflows/ci.yaml/badge.svg)](https://github.com/danuser2018/pavos-wallet/actions/workflows/ci.yaml)
 # PavosWallet
 
 PavosWallet es un monedero electrónico para la criptomoneda Pavo (PV), que permite a los usuarios administrar sus fondos de manera segura y conveniente en sus dispositivos de escritorio.
