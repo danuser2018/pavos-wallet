@@ -30,7 +30,6 @@ jobs:
         PIP_CACHE_DIR: ${{ runner.workspace }}/.pip-cache
     - name: SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
-      with:
-        organization: danuser2018
-        projectKey: pavos-wallet
-        token: ${{ secrets.SONAR_TOKEN }}
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
