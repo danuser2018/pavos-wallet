@@ -5,6 +5,12 @@ Todos los cambios importantes a este proyecto se documentarán en este archivo.
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es/1.0.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/lang/es/spec/v2.0.0.html).
 
+## [1.2.3] - 2023-05-07
+
+### Añadido
+
+- Se añade un nuevo badge en el readme que indica si la integración continua se ha pasado o no
+
 ## [1.2.2] - 2023-05-07
 
 ### Añadido
